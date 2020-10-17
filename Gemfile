@@ -35,6 +35,7 @@ group :development, :test do
   gem 'pry'
   gem 'shoulda-matchers'
   gem 'capybara'
+  gem 'csv'
 end
 
 group :development do
