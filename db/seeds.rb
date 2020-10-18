@@ -76,5 +76,3 @@ CSV.foreach(transactions_file_path, :headers => :true, header_converters: :symbo
     updated_at: row[:updated_at]
   } )
 end
-
-require "pry"; binding.pry
