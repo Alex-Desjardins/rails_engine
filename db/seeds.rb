@@ -50,4 +50,31 @@ CSV.foreach(invoices_file_path, :headers => :true, header_converters: :symbol) d
   } )
 end
 
+InvoiceItem.destroy_all
+invoice_items_file_path = "./db/csv_data/invoice_items.csv"
+CSV.foreach(invoice_items_file_path, :headers => :true, header_converters: :symbol) do |row|
+ InvoiceItem.create!( {
+    id: row[:id],
+    item_id: row[:item_id],
+    invoice_id: row[:invoice_id],
+    quantity: row[:quantity],
+    unit_price: row[:unit_price],
+    created_at: row[:created_at],
+    updated_at: row[:updated_at]
+  } )
+end
+
+Transaction.destroy_all
+transactions_file_path = "./db/csv_data/transactions.csv"
+CSV.foreach(transactions_file_path, :headers => :true, header_converters: :symbol) do |row|
+ Transaction.create!( {
+    id: row[:id],
+    invoice_id: row[:invoice_id],
+    credit_card_number: row[:credit_card_number],
+    result: row[:result],
+    created_at: row[:created_at],
+    updated_at: row[:updated_at]
+  } )
+end
+
 require "pry"; binding.pry
