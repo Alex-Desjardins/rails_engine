@@ -78,7 +78,7 @@ describe 'Items REST Endpoints' do
     expect(item_json[:data][:attributes][:name]).to eq(item_params[:name])
   end
 
-  it "can destroy a merchant" do
+  it "can destroy a item" do
     item = create(:item)
 
     expect(Item.count).to eq(1)

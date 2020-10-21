@@ -71,16 +71,22 @@ describe 'Merchants REST Endpoints' do
     expect(merchant_json[:data][:attributes][:name]).to eq(merchant_params[:name])
   end
 
-  it "can destroy a merchant" do
+  it "can destroy a merchant and its items" do
     merchant = create(:merchant)
+    item1 = merchant.items.create(name: 'Bowling Ball', description: '10 pound ball', unit_price: 54.75)
+    item2 = merchant.items.create(name: 'Basket Ball', description: 'High quality leather', unit_price: 22.00)
 
     expect(Merchant.count).to eq(1)
+    expect(merchant.items.count).to eq(2)
 
     delete "/api/v1/merchants/#{merchant.id}"
 
     expect(Merchant.count).to eq(0)
+
     expect(response).to be_successful
 
     expect{Merchant.find(merchant.id)}.to raise_error(ActiveRecord::RecordNotFound)
+    expect{Item.find(item1.id)}.to raise_error(ActiveRecord::RecordNotFound)
+    expect{Item.find(item2.id)}.to raise_error(ActiveRecord::RecordNotFound)
   end
 end
