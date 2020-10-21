@@ -4,8 +4,8 @@ class CreateInvoices < ActiveRecord::Migration[5.2]
       t.integer :customer_id, foreign_key: true
       t.integer :merchant_id, foreign_key: true
       t.string :status
-      t.datetime :created_at
-      t.datetime :updated_at
+
+      t.timestamps
     end
   end
 end
