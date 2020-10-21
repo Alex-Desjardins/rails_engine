@@ -6,7 +6,7 @@ RSpec.describe 'Items Merchant' do
     item = create(:item, merchant: merchant)
     random_merchants = 2.times {create(:merchant)}
 
-    get "/api/v1/items/#{item.id}/merchants"
+    get "/api/v1/items/#{item.id}/merchant"
     expect(response).to be_successful
     expect(response.content_type).to eq("application/json")
 
