@@ -6,10 +6,4 @@ class Api::V1::Merchants::SearchController < ApplicationController
   def index
     render json: MerchantSerializer.new(Merchant.where("name ILIKE '%#{value}%'"))
   end
-
-  private
-
-  def value
-    request.query_parameters.values.reduce.downcase
-  end
 end
