@@ -23,8 +23,4 @@ class Merchant < ApplicationRecord
      .order('sold_items DESC')
      .limit(count)
   end
-
-  def revenue
-
-  end
 end
