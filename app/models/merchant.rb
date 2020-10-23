@@ -6,6 +6,14 @@ class Merchant < ApplicationRecord
   has_many :invoice_items,through: :invoices, dependent: :destroy
   has_many :transactions,through: :invoices, dependent: :destroy
 
+  def self.single_search_string(params)
+    find_by("name ILIKE '%#{params.values.reduce.downcase}%'")
+  end
+
+  def self.multi_search_string(params)
+    where("name ILIKE '%#{params.values.reduce.downcase}%'")
+  end
+
   def self.most_revenue(count)
      joins(invoices: [:transactions, :invoice_items])
      .select("merchants.*, SUM(invoice_items.unit_price * invoice_items.quantity) AS revenue")
