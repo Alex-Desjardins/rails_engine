@@ -1,15 +1,9 @@
 class Api::V1::Merchants::SearchController < ApplicationController
   def show
-    render json: MerchantSerializer.new(Merchant.find_by("name ILIKE '%#{value}%'"))
+    render json: MerchantSerializer.new(Merchant.single_search_string(request.query_parameters))
   end
 
   def index
-    render json: MerchantSerializer.new(Merchant.where("name ILIKE '%#{value}%'"))
-  end
-
-  private
-
-  def value
-    request.query_parameters.values.reduce.downcase
+    render json: MerchantSerializer.new(Merchant.multi_search_string(request.query_parameters))
   end
 end
