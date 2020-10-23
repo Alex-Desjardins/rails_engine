@@ -64,3 +64,7 @@ CSV.foreach(transactions_file_path, :headers => :true, header_converters: :symbo
     result: row[:result]
   } )
 end
+
+ActiveRecord::Base.connection.tables.each do |t|
+  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+end
